@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mock tests should create categories validation 1`] = `
+"joi.object().keys({
+  data: joi
+    .array()
+    .items(
+      joi.object().keys({
+        color: joi.string().allow(''),
+        id: joi
+          .string()
+          .allow('')
+          .required(),
+        region: joi
+          .string()
+          .allow('')
+          .required(),
+        sortIndex: joi.number().required(),
+        svg: joi
+          .string()
+          .allow('')
+          .required(),
+        title: joi
+          .string()
+          .allow('')
+          .required(),
+      }),
+    )
+    .required(),
+  next: joi.boolean(),
+})"
+`;
+
+exports[`mock tests should create petstore pet get validation 1`] = `
+"joi.object().keys({
+  name: joi
+    .string()
+    .allow('')
+    .required(),
+  tag: joi.string().allow(''),
+  id: joi.number().required(),
+})"
+`;
+
+exports[`mock tests should create petstore pets get validation 1`] = `
+"joi.array().items(
+  joi.object().keys({
+    name: joi
+      .string()
+      .allow('')
+      .required(),
+    tag: joi.string().allow(''),
+    id: joi.number().required(),
+  }),
+)"
+`;

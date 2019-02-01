@@ -1,0 +1,27 @@
+import * as joi from 'joi'
+import axios from 'axios'
+
+export type I${upperOperationId}Options = ${optionsInterface}
+
+<% if (isDelete) { %>
+<% if (!_.isEmpty(description)) { %>// ${description}<% } %>
+export async function ${operationId}(options: I${upperOperationId}Options): Promise<void> {
+  const url = ${applyUrlParams('options')}
+  await axios.${method}(url, { 
+    <% if (containsQuery) { %>params: options.query,<% } %>
+  })
+}
+<% } else { %>
+export type I${upperOperationId}Data = ${responseInterface}
+
+export const ${upperOperationId}Data = ${scheme}
+
+<% if (!_.isEmpty(description)) { %>// ${description}<% } %>
+export async function ${operationId}(options: I${upperOperationId}Options): Promise<I${upperOperationId}Data> {
+  const url = ${applyUrlParams('options')}
+  const { data } = await axios.${method}<I${upperOperationId}Data>(url<% if (containsBody) { %>, options.body<% } %>, { 
+    <% if (containsQuery) { %>params: options.query,<% } %>
+  })
+  return await joi.validate(data, ${upperOperationId}Data)
+}
+<% } %>

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es2017",
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "removeComments": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "types": ["node", "jest"],
+    "typeRoots": ["typings"]
+  },
+  "exclude": ["tests", "tasks"]
+}

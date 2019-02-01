@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mock tests should create categories validation 1`] = `
+"{
+  data: Array<{
+    color?: string
+    id: string
+    region: string
+    sortIndex: number
+    svg: string
+    title: string
+  }>
+  next?: boolean
+}"
+`;
+
+exports[`mock tests should create petstore pet get validation 1`] = `
+"{
+  name: string
+  tag?: string
+  id: number
+}"
+`;
+
+exports[`mock tests should create petstore pets get validation 1`] = `
+"Array<{
+  name: string
+  tag?: string
+  id: number
+}>"
+`;

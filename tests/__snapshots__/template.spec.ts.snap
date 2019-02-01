@@ -1,0 +1,343 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should create categories template 1`] = `
+"import * as joi from 'joi'
+import axios from 'axios'
+
+export type IGetChannelCategoriesOptions = {
+  query?: {
+    region?: string
+  }
+}
+
+export type IGetChannelCategoriesData = {
+  data: Array<{
+    color?: string
+    id: string
+    region: string
+    sortIndex: number
+    svg: string
+    title: string
+  }>
+  next?: boolean
+}
+
+export const GetChannelCategoriesData = joi.object().keys({
+  data: joi
+    .array()
+    .items(
+      joi.object().keys({
+        color: joi.string().allow(''),
+        id: joi
+          .string()
+          .allow('')
+          .required(),
+        region: joi
+          .string()
+          .allow('')
+          .required(),
+        sortIndex: joi.number().required(),
+        svg: joi
+          .string()
+          .allow('')
+          .required(),
+        title: joi
+          .string()
+          .allow('')
+          .required(),
+      }),
+    )
+    .required(),
+  next: joi.boolean(),
+})
+
+export async function getChannelCategories(options: IGetChannelCategoriesOptions): Promise<IGetChannelCategoriesData> {
+  const url = \`/channel-categories\`
+  const { data } = await axios.get<IGetChannelCategoriesData>(url, {
+    params: options.query,
+  })
+  return await joi.validate(data, GetChannelCategoriesData)
+}"
+`;
+
+exports[`should create channel template 1`] = `
+"import * as joi from 'joi'
+import axios from 'axios'
+
+export type IGetChannelsOptions = {
+  query?: {
+    categoryId?: string
+    creatorId?: string
+    id?: Array<string>
+    private?: boolean
+    region?: string
+  }
+}
+
+export type IGetChannelsData = {
+  data: Array<{
+    avatarImageId: string
+    coverImageId: string
+    creatorId: string
+    datetime: string
+    description: string
+    followers: number
+    id: string
+    playlistMode: 'new' | 'shuffle'
+    private: boolean
+    showInNews: boolean
+    title: string
+    website?: string
+  }>
+  next?: boolean
+}
+
+export const GetChannelsData = joi.object().keys({
+  data: joi
+    .array()
+    .items(
+      joi.object().keys({
+        avatarImageId: joi
+          .string()
+          .allow('')
+          .required(),
+        coverImageId: joi
+          .string()
+          .allow('')
+          .required(),
+        creatorId: joi
+          .string()
+          .allow('')
+          .required(),
+        datetime: joi
+          .string()
+          .allow('')
+          .required(),
+        description: joi
+          .string()
+          .allow('')
+          .required(),
+        followers: joi.number().required(),
+        id: joi
+          .string()
+          .allow('')
+          .required(),
+        playlistMode: joi
+          .string()
+          .valid(['new', 'shuffle'])
+          .required(),
+        private: joi.boolean().required(),
+        showInNews: joi.boolean().required(),
+        title: joi
+          .string()
+          .allow('')
+          .required(),
+        website: joi.string().allow(''),
+      }),
+    )
+    .required(),
+  next: joi.boolean(),
+})
+
+export async function getChannels(options: IGetChannelsOptions): Promise<IGetChannelsData> {
+  const url = \`/channels\`
+  const { data } = await axios.get<IGetChannelsData>(url, {
+    params: options.query,
+  })
+  return await joi.validate(data, GetChannelsData)
+}"
+`;
+
+exports[`should create channel(post) template 1`] = `
+"import * as joi from 'joi'
+import axios from 'axios'
+
+export type IPostChannelsOptions = {
+  body: {
+    avatarImageId?: string
+    coverImageId?: string
+    creatorId?: string
+    description?: string
+    playlistMode?: 'new' | 'shuffle'
+    private?: boolean
+    title?: string
+    website?: string
+  }
+}
+
+export type IPostChannelsData = {
+  data: {
+    avatarImageId: string
+    coverImageId: string
+    creatorId: string
+    datetime: string
+    description: string
+    followers: number
+    id: string
+    playlistMode: 'new' | 'shuffle'
+    private: boolean
+    showInNews: boolean
+    title: string
+    website?: string
+  }
+  next?: boolean
+}
+
+export const PostChannelsData = joi.object().keys({
+  data: joi
+    .object()
+    .keys({
+      avatarImageId: joi
+        .string()
+        .allow('')
+        .required(),
+      coverImageId: joi
+        .string()
+        .allow('')
+        .required(),
+      creatorId: joi
+        .string()
+        .allow('')
+        .required(),
+      datetime: joi
+        .string()
+        .allow('')
+        .required(),
+      description: joi
+        .string()
+        .allow('')
+        .required(),
+      followers: joi.number().required(),
+      id: joi
+        .string()
+        .allow('')
+        .required(),
+      playlistMode: joi
+        .string()
+        .valid(['new', 'shuffle'])
+        .required(),
+      private: joi.boolean().required(),
+      showInNews: joi.boolean().required(),
+      title: joi
+        .string()
+        .allow('')
+        .required(),
+      website: joi.string().allow(''),
+    })
+    .required(),
+  next: joi.boolean(),
+})
+
+export async function postChannels(options: IPostChannelsOptions): Promise<IPostChannelsData> {
+  const url = \`/channels\`
+  const { data } = await axios.post<IPostChannelsData>(url, options.body, {})
+  return await joi.validate(data, PostChannelsData)
+}"
+`;
+
+exports[`should create petstore pet template 1`] = `
+"import * as joi from 'joi'
+import axios from 'axios'
+
+export type IFindPetByIdOptions = {
+  path: {
+    id: number
+  }
+}
+
+export type IFindPetByIdData = {
+  name: string
+  tag?: string
+  id: number
+}
+
+export const FindPetByIdData = joi.object().keys({
+  name: joi
+    .string()
+    .allow('')
+    .required(),
+  tag: joi.string().allow(''),
+  id: joi.number().required(),
+})
+
+// Returns a user based on a single ID, if the user does not have access to the pet
+export async function findPetById(options: IFindPetByIdOptions): Promise<IFindPetByIdData> {
+  const url = \`/pets/\${options.path.id}\`
+  const { data } = await axios.get<IFindPetByIdData>(url, {})
+  return await joi.validate(data, FindPetByIdData)
+}"
+`;
+
+exports[`should create petstore pets template 1`] = `
+"import * as joi from 'joi'
+import axios from 'axios'
+
+export type IFindPetsOptions = {
+  query?: {
+    tags?: Array<string>
+    limit?: number
+  }
+}
+
+export type IFindPetsData = Array<{
+  name: string
+  tag?: string
+  id: number
+}>
+
+export const FindPetsData = joi.array().items(
+  joi.object().keys({
+    name: joi
+      .string()
+      .allow('')
+      .required(),
+    tag: joi.string().allow(''),
+    id: joi.number().required(),
+  }),
+)
+
+// Returns all pets from the system that the user has access to Nam sed condimentum est.
+export async function findPets(options: IFindPetsOptions): Promise<IFindPetsData> {
+  const url = \`/pets\`
+  const { data } = await axios.get<IFindPetsData>(url, {
+    params: options.query,
+  })
+  return await joi.validate(data, FindPetsData)
+}"
+`;
+
+exports[`should create petstore pets(post) template 1`] = `
+"import * as joi from 'joi'
+import axios from 'axios'
+
+export type IAddPetOptions = {
+  body: {
+    pet: {
+      name: string
+      tag?: string
+    }
+  }
+}
+
+export type IAddPetData = {
+  name: string
+  tag?: string
+  id: number
+}
+
+export const AddPetData = joi.object().keys({
+  name: joi
+    .string()
+    .allow('')
+    .required(),
+  tag: joi.string().allow(''),
+  id: joi.number().required(),
+})
+
+// Creates a new pet in the store.  Duplicates are allowed
+export async function addPet(options: IAddPetOptions): Promise<IAddPetData> {
+  const url = \`/pets\`
+  const { data } = await axios.post<IAddPetData>(url, options.body, {})
+  return await joi.validate(data, AddPetData)
+}"
+`;

@@ -1,0 +1,37 @@
+{
+  "name": "swagger-utils",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "cli": "ts-node src/cli",
+    "prettier": "prettier --write {src,tests}/**/*.ts {src,tests}/*.ts",
+    "postinstall": "./tasks/postinstall.sh",
+    "test": "run-s test:*",
+    "test:compile": "tsc --noEmit",
+    "test:unit": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.13",
+    "@types/joi": "^14.3.0",
+    "@types/lodash": "^4.14.120",
+    "@types/node": "^10.12.20",
+    "@types/prettier": "^1.15.2",
+    "@types/prompts": "^1.2.0",
+    "@types/swagger-parser": "^4.0.2",
+    "jest": "^23.6.0",
+    "joi-extract-type": "^0.1.5",
+    "npm-run-all": "^4.1.5",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.4"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "joi": "^14.3.1",
+    "lodash": "^4.17.11",
+    "prettier": "^1.16.3",
+    "prompts": "^2.0.1",
+    "swagger-parser": "^6.0.5",
+    "ts-node": "^8.0.2"
+  }
+}
