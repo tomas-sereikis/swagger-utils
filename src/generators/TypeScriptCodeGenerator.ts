@@ -1,4 +1,4 @@
-import { CodeGenerator } from './CodeGenerator'
+import { ICodeGenerator } from './CodeGenerator'
 import {
   ISwaggerScheme,
   ISwaggerSchemeArray,
@@ -7,7 +7,7 @@ import {
   ISwaggerSchemeObject,
   ISwaggerSchemeString,
   SwaggerSchemeType,
-  joinSwaggerSchemeObjectOfAll,
+  swaggerSchemeObjectPropertiesMerge,
 } from '../swagger'
 import { formatCode } from '../prettier'
 
@@ -15,7 +15,7 @@ interface IOfInterfaceObject {
   [key: string]: ISwaggerScheme
 }
 
-export class TypeScriptCodeGenerator implements CodeGenerator {
+export class TypeScriptCodeGenerator implements ICodeGenerator {
   private static formatCodeLocal(code: string): string {
     return formatCode(`type A = ${code}`).substr(9)
   }
@@ -56,11 +56,11 @@ export class TypeScriptCodeGenerator implements CodeGenerator {
   }
 
   ofObject(scheme: ISwaggerSchemeObject): string {
-    const info = joinSwaggerSchemeObjectOfAll(scheme)
+    const info = swaggerSchemeObjectPropertiesMerge(scheme)
     const keyValues = Object.keys(info.properties).reduce((previousValue, currentValue) => {
       const suffix = info.required.includes(currentValue) ? '' : '?'
-      const scheme = this.of(info.properties[currentValue])
-      return `${previousValue}'${currentValue}'${suffix}:${scheme},\n`
+      const next = this.of(info.properties[currentValue])
+      return `${previousValue}'${currentValue}'${suffix}:${next},\n`
     }, '')
     const defaultValue = `{\n${keyValues}}`
     return TypeScriptCodeGenerator.formatCodeLocal(defaultValue)
@@ -71,7 +71,7 @@ export class TypeScriptCodeGenerator implements CodeGenerator {
     return TypeScriptCodeGenerator.formatCodeLocal(defaultValue)
   }
 
-  onInterface(object: IOfInterfaceObject, required: string[]): string {
+  ofInterface(object: IOfInterfaceObject, required: string[]): string {
     const keyValues = Object.keys(object).reduce((previousValue, currentValue) => {
       const suffix = required.includes(currentValue) ? '' : '?'
       const scheme = this.of(object[currentValue])

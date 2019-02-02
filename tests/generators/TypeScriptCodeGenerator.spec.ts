@@ -17,7 +17,7 @@ describe('initial methods', () => {
         type: SwaggerSchemeType.array,
         items: { type: SwaggerSchemeType.boolean },
       })
-      expect(value1).toBe(`Array<boolean>`)
+      expect(value1).toMatchSnapshot()
       expect(value2).toBe(value2)
     })
 
@@ -26,8 +26,11 @@ describe('initial methods', () => {
         type: SwaggerSchemeType.array,
         items: { type: SwaggerSchemeType.string },
       })
-      const value2 = tsCodeGenerator.of({ type: SwaggerSchemeType.array, items: { type: SwaggerSchemeType.string } })
-      expect(value1).toBe(`Array<string>`)
+      const value2 = tsCodeGenerator.of({
+        type: SwaggerSchemeType.array,
+        items: { type: SwaggerSchemeType.string },
+      })
+      expect(value1).toMatchSnapshot()
       expect(value2).toBe(value2)
     })
 
@@ -40,7 +43,7 @@ describe('initial methods', () => {
         type: SwaggerSchemeType.array,
         items: { type: SwaggerSchemeType.array, items: { type: SwaggerSchemeType.boolean } },
       })
-      expect(value1).toBe(`Array<Array<boolean>>`)
+      expect(value1).toMatchSnapshot()
       expect(value2).toBe(value2)
     })
   })
@@ -49,7 +52,7 @@ describe('initial methods', () => {
     test('should build boolean', () => {
       const value1 = tsCodeGenerator.ofBoolean({ type: SwaggerSchemeType.boolean })
       const value2 = tsCodeGenerator.of({ type: SwaggerSchemeType.boolean })
-      expect(value1).toBe(`boolean`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
   })
@@ -58,7 +61,7 @@ describe('initial methods', () => {
     test('should build number', () => {
       const value1 = tsCodeGenerator.ofNumber({ type: SwaggerSchemeType.number })
       const value2 = tsCodeGenerator.of({ type: SwaggerSchemeType.number })
-      expect(value1).toBe(`number`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
   })
@@ -81,7 +84,7 @@ describe('initial methods', () => {
         },
         required: ['a'],
       })
-      expect(value1).toBe(`{\n  a: number\n  b?: boolean\n}`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
 
@@ -102,7 +105,7 @@ describe('initial methods', () => {
         },
         required: [],
       })
-      expect(value1).toBe(`{\n  a?: Array<number>\n  b?: boolean\n}`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
   })
@@ -111,13 +114,13 @@ describe('initial methods', () => {
     test('should build string with allow empty value', () => {
       const value1 = tsCodeGenerator.ofString({ type: SwaggerSchemeType.string })
       const value2 = tsCodeGenerator.of({ type: SwaggerSchemeType.string })
-      expect(value1).toBe(`string`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
     test('should build string enum', () => {
       const value1 = tsCodeGenerator.ofString({ type: SwaggerSchemeType.string, enum: ['a', 'b'] })
       const value2 = tsCodeGenerator.of({ type: SwaggerSchemeType.string, enum: ['a', 'b'] })
-      expect(value1).toBe(`'a' | 'b'`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
   })

@@ -17,7 +17,7 @@ describe('initial methods', () => {
         type: SwaggerSchemeType.array,
         items: { type: SwaggerSchemeType.boolean },
       })
-      expect(value1).toBe(`joi.array().items(joi.boolean())`)
+      expect(value1).toMatchSnapshot()
       expect(value2).toBe(value2)
     })
 
@@ -26,8 +26,11 @@ describe('initial methods', () => {
         type: SwaggerSchemeType.array,
         items: { type: SwaggerSchemeType.number },
       })
-      const value2 = joiCodeGenerator.of({ type: SwaggerSchemeType.array, items: { type: SwaggerSchemeType.number } })
-      expect(value1).toBe(`joi.array().items(joi.number())`)
+      const value2 = joiCodeGenerator.of({
+        type: SwaggerSchemeType.array,
+        items: { type: SwaggerSchemeType.number },
+      })
+      expect(value1).toMatchSnapshot()
       expect(value2).toBe(value2)
     })
 
@@ -36,8 +39,11 @@ describe('initial methods', () => {
         type: SwaggerSchemeType.array,
         items: { type: SwaggerSchemeType.string },
       })
-      const value2 = joiCodeGenerator.of({ type: SwaggerSchemeType.array, items: { type: SwaggerSchemeType.string } })
-      expect(value1).toBe(`joi.array().items(joi.string().allow(''))`)
+      const value2 = joiCodeGenerator.of({
+        type: SwaggerSchemeType.array,
+        items: { type: SwaggerSchemeType.string },
+      })
+      expect(value1).toMatchSnapshot()
       expect(value2).toBe(value2)
     })
 
@@ -50,7 +56,7 @@ describe('initial methods', () => {
         type: SwaggerSchemeType.array,
         items: { type: SwaggerSchemeType.array, items: { type: SwaggerSchemeType.boolean } },
       })
-      expect(value1).toBe(`joi.array().items(joi.array().items(joi.boolean()))`)
+      expect(value1).toMatchSnapshot()
       expect(value2).toBe(value2)
     })
   })
@@ -59,7 +65,7 @@ describe('initial methods', () => {
     test('should build boolean optional', () => {
       const value1 = joiCodeGenerator.ofBoolean({ type: SwaggerSchemeType.boolean })
       const value2 = joiCodeGenerator.of({ type: SwaggerSchemeType.boolean })
-      expect(value1).toBe(`joi.boolean()`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
   })
@@ -68,7 +74,7 @@ describe('initial methods', () => {
     test('should build number', () => {
       const value1 = joiCodeGenerator.ofNumber({ type: SwaggerSchemeType.number })
       const value2 = joiCodeGenerator.of({ type: SwaggerSchemeType.number })
-      expect(value1).toBe(`joi.number()`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
   })
@@ -91,7 +97,7 @@ describe('initial methods', () => {
         },
         required: ['a'],
       })
-      expect(value1).toBe(`joi.object().keys({\n  a: joi.number().required(),\n  b: joi.boolean(),\n})`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
 
@@ -112,7 +118,7 @@ describe('initial methods', () => {
         },
         required: [],
       })
-      expect(value1).toBe(`joi.object().keys({\n  a: joi.array().items(joi.number()),\n  b: joi.boolean(),\n})`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
   })
@@ -121,13 +127,13 @@ describe('initial methods', () => {
     test('should build string with allow empty value', () => {
       const value1 = joiCodeGenerator.ofString({ type: SwaggerSchemeType.string })
       const value2 = joiCodeGenerator.of({ type: SwaggerSchemeType.string })
-      expect(value1).toBe(`joi.string().allow('')`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
     test('should build string enum optional', () => {
       const value1 = joiCodeGenerator.ofString({ type: SwaggerSchemeType.string, enum: ['a', 'b'] })
       const value2 = joiCodeGenerator.of({ type: SwaggerSchemeType.string, enum: ['a', 'b'] })
-      expect(value1).toBe(`joi.string().valid(['a', 'b'])`)
+      expect(value1).toMatchSnapshot()
       expect(value1).toBe(value2)
     })
   })

@@ -6,7 +6,7 @@ export async function validate(docs: swaggerScheme.Spec): Promise<ISwaggerDocs> 
   return await swaggerParser.validate(docs)
 }
 
-export function joinSwaggerSchemeObjectOfAll(object: ISwaggerSchemeObject): ISwaggerSchemeObjectProperties {
+export function swaggerSchemeObjectPropertiesMerge(object: ISwaggerSchemeObject): ISwaggerSchemeObjectProperties {
   const type = SwaggerSchemeType.object
   if (object.allOf) {
     const required = flatten(object.allOf.map(curr => curr.required))
@@ -87,7 +87,7 @@ export interface ISwaggerSchemeObjectProperties {
 
 export interface ISwaggerSchemeObject extends Partial<ISwaggerSchemeObjectProperties> {
   type: SwaggerSchemeType.object
-  allOf?: Array<ISwaggerSchemeObjectProperties>
+  allOf?: ISwaggerSchemeObjectProperties[]
 }
 
 export interface ISwaggerSchemeBoolean {

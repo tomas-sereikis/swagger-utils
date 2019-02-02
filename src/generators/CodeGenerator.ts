@@ -7,7 +7,7 @@ import {
   ISwaggerSchemeString,
 } from '../swagger'
 
-export interface CodeGenerator {
+export interface ICodeGenerator {
   of(scheme: ISwaggerScheme): string
   ofArray(scheme: ISwaggerSchemeArray): string
   ofBoolean(scheme: ISwaggerSchemeBoolean): string

@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`initial methods array builder should build array of array of boolean 1`] = `"joi.array().items(joi.array().items(joi.boolean()))"`;
+
+exports[`initial methods array builder should build array of boolean 1`] = `"joi.array().items(joi.boolean())"`;
+
+exports[`initial methods array builder should build array of number 1`] = `"joi.array().items(joi.number())"`;
+
+exports[`initial methods array builder should build array of string 1`] = `"joi.array().items(joi.string().allow(''))"`;
+
+exports[`initial methods boolean builder should build boolean optional 1`] = `"joi.boolean()"`;
+
+exports[`initial methods number builder should build number 1`] = `"joi.number()"`;
+
+exports[`initial methods object builder should build object with two keys array and boolean 1`] = `
+"joi.object().keys({
+  a: joi.array().items(joi.number()),
+  b: joi.boolean(),
+})"
+`;
+
+exports[`initial methods object builder should build object with two keys number and boolean 1`] = `
+"joi.object().keys({
+  a: joi.number().required(),
+  b: joi.boolean(),
+})"
+`;
+
+exports[`initial methods string builder should build string enum optional 1`] = `"joi.string().valid(['a', 'b'])"`;
+
+exports[`initial methods string builder should build string with allow empty value 1`] = `"joi.string().allow('')"`;
+
 exports[`mock tests should create categories validation 1`] = `
 "joi.object().keys({
   data: joi

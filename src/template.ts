@@ -31,9 +31,9 @@ function parametersInToObjectScheme(
     .reduce(
       (previousValue, currentValue) => {
         if (
-          currentValue.in === SwaggerParameterIn.body && 
-          currentValue.name === 'body' && 
-          currentValue.schema && 
+          currentValue.in === SwaggerParameterIn.body &&
+          currentValue.name === 'body' &&
+          currentValue.schema &&
           currentValue.schema.type === SwaggerSchemeType.object
         ) {
           return {
@@ -83,7 +83,7 @@ export function createTemplate(options: ICreateTemplateParams): string {
   const paramsObjectScheme = parametersInToObjectScheme(endpoint.parameters, SwaggerParameterIn.path)
 
   let optionsScheme = {}
-  let required = []
+  const required = []
   if (bodyObjectScheme.count) {
     optionsScheme = { ...optionsScheme, body: bodyObjectScheme.scheme }
     required.push(SwaggerParameterIn.body)
@@ -99,7 +99,7 @@ export function createTemplate(options: ICreateTemplateParams): string {
     required.push(SwaggerParameterIn.path)
   }
 
-  const optionsObject = tsCodeGenerator.onInterface(optionsScheme, required)
+  const optionsObject = tsCodeGenerator.ofInterface(optionsScheme, required)
   const templateBuilder = template(options.template)
   const operationId = camelCase(endpoint.operationId)
   const description = endpoint.description ? removeNewLines(endpoint.description) : ''
@@ -107,7 +107,7 @@ export function createTemplate(options: ICreateTemplateParams): string {
   return formatCode(
     templateBuilder({
       applyUrlParams: applyUrlParamsBuilder(options.url),
-      description: description,
+      description,
       containsBody: ['post', 'put', 'patch'].includes(options.method),
       containsQuery: !!queryObjectScheme.count,
       responseInterface: tsCodeGenerator.of(response!.schema),

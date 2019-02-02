@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`initial methods array builder should build array of array of boolean 1`] = `"Array<Array<boolean>>"`;
+
+exports[`initial methods array builder should build array of boolean 1`] = `"Array<boolean>"`;
+
+exports[`initial methods array builder should build array of string 1`] = `"Array<string>"`;
+
+exports[`initial methods boolean builder should build boolean 1`] = `"boolean"`;
+
+exports[`initial methods number builder should build number 1`] = `"number"`;
+
+exports[`initial methods object builder should build object with two keys array and boolean 1`] = `
+"{
+  a?: Array<number>
+  b?: boolean
+}"
+`;
+
+exports[`initial methods object builder should build object with two keys number and boolean 1`] = `
+"{
+  a: number
+  b?: boolean
+}"
+`;
+
+exports[`initial methods string builder should build string enum 1`] = `"'a' | 'b'"`;
+
+exports[`initial methods string builder should build string with allow empty value 1`] = `"string"`;
+
 exports[`mock tests should create categories validation 1`] = `
 "{
   data: Array<{

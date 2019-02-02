@@ -1,6 +1,7 @@
 .vscode
 .idea
 node_modules
+coverage
 yarn-error.log
 typings/generated
 dist

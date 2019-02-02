@@ -42,7 +42,7 @@ async function main(argv: ReadonlyArray<string>) {
   })
 
   const docs = await swagger.validate(swaggerUrl)
-  const choicesOfPaths = Object.keys(docs.paths).map(path => ({ value: path, title: path }))
+  const choicesOfPaths = Object.keys(docs.paths).map(curr => ({ value: curr, title: curr }))
   const { value: paths } = await prompts({
     message: MSG_SELECT_PATHS,
     name: 'value',
@@ -51,8 +51,8 @@ async function main(argv: ReadonlyArray<string>) {
   })
 
   const choicesOfOperations = Object.keys(docs.paths)
-    .filter(path => paths.includes(path))
-    .map(path => Object.values(docs.paths[path]))
+    .filter(curr => paths.includes(curr))
+    .map(curr => Object.values(docs.paths[curr]))
     .reduce(
       (previousValue, currentValue) => [...previousValue, ...currentValue.map(curr => curr.operationId)],
       [] as string[],

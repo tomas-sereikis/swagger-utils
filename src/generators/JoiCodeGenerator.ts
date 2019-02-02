@@ -1,4 +1,4 @@
-import { CodeGenerator } from './CodeGenerator'
+import { ICodeGenerator } from './CodeGenerator'
 import {
   ISwaggerScheme,
   ISwaggerSchemeArray,
@@ -7,11 +7,11 @@ import {
   ISwaggerSchemeObject,
   ISwaggerSchemeString,
   SwaggerSchemeType,
-  joinSwaggerSchemeObjectOfAll,
+  swaggerSchemeObjectPropertiesMerge,
 } from '../swagger'
 import { formatCode } from '../prettier'
 
-export class JoiCodeGenerator implements CodeGenerator {
+export class JoiCodeGenerator implements ICodeGenerator {
   of(scheme: ISwaggerScheme): string {
     const type = scheme.type
     switch (scheme.type) {
@@ -48,11 +48,11 @@ export class JoiCodeGenerator implements CodeGenerator {
   }
 
   ofObject(scheme: ISwaggerSchemeObject): string {
-    const info = joinSwaggerSchemeObjectOfAll(scheme)
+    const info = swaggerSchemeObjectPropertiesMerge(scheme)
     const keyValues = Object.keys(info.properties).reduce((previousValue, currentValue) => {
       const required = info.required.includes(currentValue) ? '.required()' : ''
-      const nextScheme = this.of(info.properties[currentValue])
-      return `${previousValue}'${currentValue}':${nextScheme}${required},\n`
+      const next = this.of(info.properties[currentValue])
+      return `${previousValue}'${currentValue}':${next}${required},\n`
     }, '')
     const defaultValue = `joi.object().keys({\n${keyValues}})`
     return formatCode(defaultValue)
