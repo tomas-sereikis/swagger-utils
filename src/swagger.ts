@@ -36,11 +36,13 @@ export enum SwaggerParameterIn {
 }
 
 export interface ISwaggerDocs {
-  info: {
-    title: string
-    description?: string
-  }
+  info: ISwaggerDocsInfo
   paths: ISwaggerPaths
+}
+
+export interface ISwaggerDocsInfo {
+  title: string
+  description?: string
 }
 
 export interface ISwaggerPaths {

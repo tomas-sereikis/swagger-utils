@@ -27,7 +27,7 @@ export default {
           },
           {
             type: 'array',
-            description: "List of id's",
+            description: `List of id's`,
             items: {
               type: 'string',
             },
