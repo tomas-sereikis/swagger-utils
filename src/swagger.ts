@@ -57,7 +57,7 @@ export interface ISwaggerPathInfo {
   description?: string
   summary: string
   operationId: string
-  parameters: Array<ISwaggerParameterDefaults & ISwaggerSchemeObject>
+  parameters?: Array<ISwaggerParameterDefaults & ISwaggerSchemeObject>
   tags: string[]
   responses: ISwaggerPathResponses
 }

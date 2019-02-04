@@ -26,7 +26,8 @@ function parametersInToObjectScheme(
   parameters: ISwaggerPathInfo['parameters'],
   inType: SwaggerParameterIn,
 ): { count: number; required: string[]; scheme: ISwaggerSchemeObject } {
-  const properties = parameters
+  const parametersAsArray = parameters || []
+  const properties = parametersAsArray
     .filter(curr => curr.in === inType)
     .reduce(
       (previousValue, currentValue) => {
@@ -49,7 +50,10 @@ function parametersInToObjectScheme(
       },
       {} as ISwaggerSchemeObjectProperty,
     )
-  const required = parameters.filter(curr => curr.in === inType && curr.required).map(curr => curr.name)
+  // prettier-ignore
+  const required = parametersAsArray
+    .filter(curr => curr.in === inType && curr.required)
+    .map(curr => curr.name)
   return {
     count: Object.keys(properties).length,
     required,
@@ -78,24 +82,24 @@ export function createTemplate(options: ICreateTemplateParams): string {
   assert(!!endpoint, 'Swagger path info is not found!')
   assert(!!response, 'Swagger response is not found!')
 
-  const bodyObjectScheme = parametersInToObjectScheme(endpoint.parameters, SwaggerParameterIn.body)
-  const queryObjectScheme = parametersInToObjectScheme(endpoint.parameters, SwaggerParameterIn.query)
-  const paramsObjectScheme = parametersInToObjectScheme(endpoint.parameters, SwaggerParameterIn.path)
+  const body = parametersInToObjectScheme(endpoint.parameters, SwaggerParameterIn.body)
+  const query = parametersInToObjectScheme(endpoint.parameters, SwaggerParameterIn.query)
+  const params = parametersInToObjectScheme(endpoint.parameters, SwaggerParameterIn.path)
 
   let optionsScheme = {}
   const required = []
-  if (bodyObjectScheme.count) {
-    optionsScheme = { ...optionsScheme, body: bodyObjectScheme.scheme }
+  if (body.count) {
+    optionsScheme = { ...optionsScheme, body: body.scheme }
     required.push(SwaggerParameterIn.body)
   }
-  if (queryObjectScheme.count) {
-    optionsScheme = { ...optionsScheme, query: queryObjectScheme.scheme }
+  if (query.count) {
+    optionsScheme = { ...optionsScheme, query: query.scheme }
   }
-  if (queryObjectScheme.count && queryObjectScheme.required.length) {
+  if (query.count && query.required.length) {
     required.push(SwaggerParameterIn.query)
   }
-  if (paramsObjectScheme.count) {
-    optionsScheme = { ...optionsScheme, path: paramsObjectScheme.scheme }
+  if (params.count) {
+    optionsScheme = { ...optionsScheme, path: params.scheme }
     required.push(SwaggerParameterIn.path)
   }
 
@@ -109,7 +113,7 @@ export function createTemplate(options: ICreateTemplateParams): string {
       applyUrlParams: applyUrlParamsBuilder(options.url),
       description,
       containsBody: ['post', 'put', 'patch'].includes(options.method),
-      containsQuery: !!queryObjectScheme.count,
+      containsQuery: !!query.count,
       responseInterface: tsCodeGenerator.of(response!.schema),
       optionsInterface: optionsObject,
       scheme: joiCodeGenerator.of(response!.schema),
